@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_nested',
     'django_filters',
-    'user_agents'
+    'user_agents',
 
     # celery apps
-    'authentication.user',
-    'authentication.permissions',
+    'authentication',
+
     'management.log',
     'management.celery',
 ]
@@ -140,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'authentication.user.User'
+AUTH_USER_MODEL = 'authentication.User'
 
 # REST Framework Configuration
 REST_FRAMEWORK = {

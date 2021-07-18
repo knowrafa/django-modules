@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from authentication.permissions.choices import PermissionChoices
+from authentication.choices import PermissionChoices
 from utils.mixins.models import SetUpModel
 
 

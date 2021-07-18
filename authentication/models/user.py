@@ -12,9 +12,7 @@ from utils.mixins.models import SetUpModel
 
 
 class User(SetUpModel, AbstractBaseUser, PermissionsMixin):
-    """
 
-    """
     username_validator = UsernameValidator()
 
     username = models.CharField(
@@ -45,8 +43,8 @@ class User(SetUpModel, AbstractBaseUser, PermissionsMixin):
         ),
     )
 
-    image = models.ImageField(blank=True, null=True)
-    image_b64 = models.TextField(null=True, blank=True)
+    # image = models.ImageField(blank=True, null=True)
+    # image_b64 = models.TextField(null=True, blank=True)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
@@ -65,12 +63,12 @@ class User(SetUpModel, AbstractBaseUser, PermissionsMixin):
         """
         Return the first_name plus the last_name, with a space in between.
         """
-        full_name = str(self.nome)
+        full_name = str(self.name)
         return full_name.strip()
 
     def get_short_name(self):
         """Return the short name for the user."""
-        return self.nome
+        return self.name
 
     def image_tag(self):
         return mark_safe('<img src="data:image/png;base64, %s" width="150" height="150"/>' % self.image_b64)
@@ -83,8 +81,8 @@ class User(SetUpModel, AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def save(self, *args, **kwargs):
-        self.image_b64 = base64.b64encode(self.image.read()) if self.image else None
-        self.image_b64 = self.image_b64.decode('utf-8')
+        # self.image_b64 = base64.b64encode(self.image.read()) if self.image else None
+        # self.image_b64 = self.image_b64.decode('utf-8')
         try:
             identify_hasher(self.password)
         except ValueError:

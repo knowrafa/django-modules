@@ -1,12 +1,12 @@
-from celery import shared_task
-from django.test import TestCase
-
-# Create your tests here.
 import json
 
+from celery import shared_task
 
-@shared_task(exchange='omniproj', routing_key='omniproj.log')
-def registrar_log(request, response):
+from authentication.user.models import User
+from .api.v1.serializers import LogSerializer
+
+
+def log_handler(request, response):
     try:
         meta = {}
         buff = dict(request.META)
@@ -24,7 +24,7 @@ def registrar_log(request, response):
         meta = {"meta_log_err": repr(e)}
 
     payload_log = {
-        "user": str(request.user.pk) if request.user.pk else '',
+        "user": str(request.user.pk) if request.user else '',
     }
 
     try:
@@ -33,7 +33,7 @@ def registrar_log(request, response):
             "path": request.path,
             "content_type": request.content_type,
             "method": request.method,
-            "nome": request.user.nome if request.user else '',
+            "nome": str(request.user) if isinstance(request.user, User) else '',
             "meta": meta,
             "headers": dict(request.headers),
             "response_status_code": int(response.status_code),
@@ -86,3 +86,13 @@ def registrar_log(request, response):
             payload_log['response_body'] = response.content.decode("UTF-8") if response.content else {}
         except Exception as e:
             payload_log['error_response_log'] = repr(e)
+
+    salvar_log.apply_async(args=(payload_log,))
+
+
+@shared_task(exchange='omniproj', routing_key='omniproj.log')
+def salvar_log(payload_log):
+    log = LogSerializer(data=payload_log)
+    log.is_valid(raise_exception=True)
+    log.save()
+    print('Log Salvo!')
