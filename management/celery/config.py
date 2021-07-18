@@ -1,1 +1,1 @@
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'amqp://localhost'  # 'redis://localhost
