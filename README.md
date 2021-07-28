@@ -13,6 +13,8 @@ Repositório de módulos de uma aplicação Django
 ## 📦 Installation
 ```bash
 virtualenv venv
+```
+```bash
 source venv/bin/activate
 ```
 ```bash
