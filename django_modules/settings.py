@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework_nested',
     'django_filters',
     'user_agents',
+    'auditlog',
 
     # celery apps
     'authentication',
@@ -71,6 +72,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'management.middleware.log.LogMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
 ]
 
 ROOT_URLCONF = APPLICATION_NAME + '.urls'
