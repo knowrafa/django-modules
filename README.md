@@ -1,4 +1,3 @@
-# django-modules
 Repositório de módulos de uma aplicação Django
 
 ## ✨ Módulos criados
