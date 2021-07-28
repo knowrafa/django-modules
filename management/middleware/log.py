@@ -1,5 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
-from management.log.tasks import registrar_log
+from management.log.tasks import log_handler
 
 
 class LogMiddleware(MiddlewareMixin):
@@ -8,5 +8,5 @@ class LogMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def process_response(self, request, response):
-        registrar_log.apply_async(args=(request, response))
+        log_handler(args=(request, response))
         return response

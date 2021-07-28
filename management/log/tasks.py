@@ -87,10 +87,12 @@ def log_handler(request, response):
         except Exception as e:
             payload_log['error_response_log'] = repr(e)
 
-    salvar_log.apply_async(args=(payload_log,))
+    # salvar_log.apply_async(args=(payload_log,))
+    salvar_log(payload_log)
 
 
-@shared_task(exchange='omniproj', routing_key='omniproj.log')
+# Modifique para o nome da sua fila e exchange
+# @shared_task(exchange='django-modules', routing_key='django-modules.log')
 def salvar_log(payload_log):
     log = LogSerializer(data=payload_log)
     log.is_valid(raise_exception=True)
