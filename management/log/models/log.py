@@ -4,9 +4,11 @@ from django.db import models
 from utils.mixins.models import SetUpModel
 from django.utils.translation import ugettext_lazy as _
 
+from utils.templates.html_table import table_template
+
 
 class LogModel(SetUpModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name='logs',
+    user = models.ForeignKey('projeto.Usuario', on_delete=models.DO_NOTHING, related_name='logs',
                              null=True, blank=True)
 
     nome = models.CharField(max_length=255, blank=True, null=True)
@@ -34,5 +36,17 @@ class LogModel(SetUpModel):
 
     class Meta:
         db_table = 'log'
-        verbose_name = 'Log'
-        verbose_name_plural = 'Logs'
+        verbose_name = 'Log de Requisição'
+        verbose_name_plural = 'Logs de Requisição'
+
+    def headers_tag(self):
+        return table_template(self.headers)
+
+    def meta_tag(self):
+        return table_template(self.meta)
+
+    def request_body_tag(self):
+        return table_template(self.request_body)
+
+    def response_body_tag(self):
+        return table_template(self.response_body)
