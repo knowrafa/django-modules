@@ -8,7 +8,7 @@ from utils.templates.html_table import table_template
 
 
 class LogModel(SetUpModel):
-    user = models.ForeignKey('projeto.Usuario', on_delete=models.DO_NOTHING, related_name='logs',
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name='logs',
                              null=True, blank=True)
 
     nome = models.CharField(max_length=255, blank=True, null=True)
