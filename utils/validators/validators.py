@@ -52,7 +52,7 @@ class IntPositivoValidator():
 
 @deconstructible
 class UsernameValidator(validators.RegexValidator):
-    regex = r'^[\a-z0-9.@+-]+\z'
+    regex = r'^[\a-z0-9.@+-]+\Z'
     message = _(
         'Enter a valid username. This value may contain only letters in lowercase, '
         'numbers, and @/./+/-/_ characters.'

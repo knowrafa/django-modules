@@ -2,7 +2,7 @@ import json
 
 from celery import shared_task
 
-from authentication.user.models import User
+from authentication.models.user import User
 from .api.v1.serializers import LogSerializer
 
 
