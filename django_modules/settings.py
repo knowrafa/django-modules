@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 
 # Define you application name (same as settings directory)
-APPLICATION_NAME = os.environ.get('APPLICATION_NAME', os.getcwd().split('/')[-1])
+APPLICATION_NAME = os.environ.get('APPLICATION_NAME', 'django_modules')
 
 # Quais URLS's podem ser host da aplicação
 ALLOWED_HOSTS = ['*']

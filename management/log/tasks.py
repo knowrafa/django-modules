@@ -88,11 +88,11 @@ def log_handler(request, response):
             payload_log['error_response_log'] = repr(e)
 
     # salvar_log.apply_async(args=(payload_log,))
-    salvar_log(payload_log)
+    salvar_log.apply_async(args=(payload_log, ))
 
 
 # Modifique para o nome da sua fila e exchange
-# @shared_task(exchange='django-modules', routing_key='django-modules.log')
+@shared_task(queue='log')
 def salvar_log(payload_log):
     log = LogSerializer(data=payload_log)
     log.is_valid(raise_exception=True)

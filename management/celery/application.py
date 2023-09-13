@@ -4,7 +4,7 @@ from celery import Celery
 from django.conf import settings
 from kombu import Queue
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings.APPLICATION_NAME + '.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_modules.settings')
 
 celery_app = Celery(settings.APPLICATION_NAME)
 celery_app.config_from_object('django.conf:settings', namespace='CELERY')

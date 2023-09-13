@@ -8,5 +8,5 @@ class LogMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def process_response(self, request, response):
-        log_handler(args=(request, response))
+        log_handler(request, response)
         return response

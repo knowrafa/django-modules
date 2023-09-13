@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${EXPOSE_PORT}:8000"
+      - "${FLOWER_PORT}:5555"
+    restart: always
+    container_name: "django_modules_web"
+    volumes:
+      - .:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+      - rabbitmq
+
+  redis:
+    image: redis:6.2.12
+    restart: always
+    container_name: "django_modules_redis"
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data-redis:/data
+
+
+  rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    container_name: "django_modules_rabbitmq"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5674:5672"
+      - "15674:15672"
